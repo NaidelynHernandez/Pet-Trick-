@@ -1,0 +1,42 @@
+#include <Servo.h>
+
+
+Servo servo;
+int angle= 10;
+
+
+int potPin=A7;
+int ledpin=2;
+int potVal=0;;
+int ledBright;
+
+void setup() {
+Serial.begin(9600);
+pinMode(ledpin,OUTPUT);
+servo.attach(9);
+servo.write(angle);
+}
+
+void loop()
+{
+
+
+
+// scan from 0 to 180 degrees
+for(angle = 10; angle< 180; angle++)
+{
+servo.write(angle);
+delay(15);
+potVal= analogRead(potPin);
+ledBright=potVal/4;
+analogWrite(ledpin,ledBright);
+delay(2);
+Serial.println(potVal);
+}
+  for(angle = 180; angle> 10; angle--)
+  {
+  servo.write(angle);
+  delay(15);
+}
+
+}
